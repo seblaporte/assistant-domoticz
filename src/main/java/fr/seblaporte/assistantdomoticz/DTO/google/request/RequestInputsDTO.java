@@ -1,4 +1,4 @@
-package fr.seblaporte.assistantdomoticz.DTO;
+package fr.seblaporte.assistantdomoticz.DTO.google.request;
 
 import lombok.Data;
 
@@ -6,12 +6,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class Inputs {
+public class RequestInputsDTO {
 
-    /** Request type */
+    /** RequestDTO type */
     @NotBlank
     private String intent;
 
     @NotNull
-    private Payload payload;
+    private RequestPayloadDTO payload;
 }
