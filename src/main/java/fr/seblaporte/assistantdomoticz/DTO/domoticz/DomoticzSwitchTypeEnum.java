@@ -2,7 +2,7 @@ package fr.seblaporte.assistantdomoticz.DTO.domoticz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum SwitchTypeEnum {
+public enum DomoticzSwitchTypeEnum {
 
     @JsonProperty("On/Off")
     ON_OFF,

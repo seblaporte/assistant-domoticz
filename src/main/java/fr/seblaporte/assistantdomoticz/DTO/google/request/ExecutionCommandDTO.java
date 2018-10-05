@@ -1,5 +1,8 @@
 package fr.seblaporte.assistantdomoticz.DTO.google.request;
 
+import fr.seblaporte.assistantdomoticz.DTO.google.DeviceCommandEnum;
+import fr.seblaporte.assistantdomoticz.DTO.google.DeviceTraitEnum;
+import fr.seblaporte.assistantdomoticz.DTO.google.StateEnum;
 import lombok.Data;
 
 import java.util.Map;
@@ -8,7 +11,7 @@ import java.util.Map;
 public class ExecutionCommandDTO {
 
     /** The command to execute, with (usually) accompanying parameters. */
-    private String command;
+    private DeviceCommandEnum command;
 
-    private Map<String, Object> params;
+    private Map<StateEnum, Object> params;
 }

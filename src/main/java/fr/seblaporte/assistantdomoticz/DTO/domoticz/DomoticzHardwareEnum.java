@@ -2,7 +2,7 @@ package fr.seblaporte.assistantdomoticz.DTO.domoticz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum HardwareEnum {
+public enum DomoticzHardwareEnum {
 
     @JsonProperty("Dummy (Does nothing, use for virtual switches only)")
     DUMMY,

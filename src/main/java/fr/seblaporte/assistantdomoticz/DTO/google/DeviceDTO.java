@@ -11,7 +11,7 @@ import java.util.List;
 public class DeviceDTO {
 
     /**
-     * DeviceDomoticzDTO id
+     * Device id
      */
     @NotBlank
     private String id;

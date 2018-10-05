@@ -2,7 +2,7 @@ package fr.seblaporte.assistantdomoticz.DTO.domoticz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public enum DeviceTypeDomoticzEnum {
+public enum DomoticzDeviceTypeEnum {
 
     @JsonProperty("Light")
     LIGHT,

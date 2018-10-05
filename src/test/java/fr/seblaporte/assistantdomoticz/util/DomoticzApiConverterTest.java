@@ -1,9 +1,9 @@
 package fr.seblaporte.assistantdomoticz.util;
 
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DeviceDomoticzDTO;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DeviceTypeDomoticzEnum;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.HardwareEnum;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.SwitchTypeEnum;
+import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceDTO;
+import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceTypeEnum;
+import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzHardwareEnum;
+import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzSwitchTypeEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceDTO;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceTraitEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceTypeEnum;
@@ -15,12 +15,12 @@ public class DomoticzApiConverterTest {
     @Test
     public void should_create_light_with_dimmer() {
 
-        DeviceDomoticzDTO domoticzDevice = new DeviceDomoticzDTO();
+        DomoticzDeviceDTO domoticzDevice = new DomoticzDeviceDTO();
         domoticzDevice.setDeviceId("1");
         domoticzDevice.setName("Lampe test");
-        domoticzDevice.setHardwareType(HardwareEnum.RFXCOM);
-        domoticzDevice.setDeviceCategory(DeviceTypeDomoticzEnum.LIGHT);
-        domoticzDevice.setSwitchType(SwitchTypeEnum.DIMMER);
+        domoticzDevice.setHardwareType(DomoticzHardwareEnum.RFXCOM);
+        domoticzDevice.setDeviceCategory(DomoticzDeviceTypeEnum.LIGHT);
+        domoticzDevice.setSwitchType(DomoticzSwitchTypeEnum.DIMMER);
 
         final DeviceDTO device = DomoticzApiConverter.convertDevice(domoticzDevice);
 
@@ -34,12 +34,12 @@ public class DomoticzApiConverterTest {
     @Test
     public void should_create_light_without_dimmer() {
 
-        DeviceDomoticzDTO domoticzDevice = new DeviceDomoticzDTO();
+        DomoticzDeviceDTO domoticzDevice = new DomoticzDeviceDTO();
         domoticzDevice.setDeviceId("1");
         domoticzDevice.setName("Lampe test");
-        domoticzDevice.setHardwareType(HardwareEnum.RFXCOM);
-        domoticzDevice.setDeviceCategory(DeviceTypeDomoticzEnum.LIGHT);
-        domoticzDevice.setSwitchType(SwitchTypeEnum.ON_OFF);
+        domoticzDevice.setHardwareType(DomoticzHardwareEnum.RFXCOM);
+        domoticzDevice.setDeviceCategory(DomoticzDeviceTypeEnum.LIGHT);
+        domoticzDevice.setSwitchType(DomoticzSwitchTypeEnum.ON_OFF);
 
         final DeviceDTO device = DomoticzApiConverter.convertDevice(domoticzDevice);
 
