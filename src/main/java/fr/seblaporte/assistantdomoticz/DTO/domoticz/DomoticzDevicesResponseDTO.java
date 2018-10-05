@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class DomoticzResponseDTO {
+public class DomoticzDevicesResponseDTO {
 
     /** Devices informations */
     private List<DomoticzDeviceDTO> result;
