@@ -1,0 +1,20 @@
+version: '2'
+
+networks:
+  wan:
+    external: true
+
+services:
+
+  assistant-bridge:
+    image: ${ASSISTANT-BRIDGE-IMAGE}
+    networks:
+      - internal
+    ports:
+      - 8090:8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=assistant-bridge"
+      - "traefik.port=8080"
+      - "traefik.frontend.rule=Host:${HOSTNAME}"
+    restart: always
