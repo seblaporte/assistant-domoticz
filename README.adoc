@@ -4,6 +4,14 @@ WARNING: Work in progress
 
 Bridge to connect Domoticz to Google Assistant.
 
+== Run locally
+
+Install the SDK Cloud : https://cloud.google.com/sdk/
+
+```
+mvn -DskipTests clean appengine:run
+```
+
 == Links
 
 - https://developers.google.com/actions/smarthome/create#setup-server[Actions on Google - Smarthome]
