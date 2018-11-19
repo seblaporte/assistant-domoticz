@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceCommandEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceDTO;
-import fr.seblaporte.assistantdomoticz.DTO.google.DeviceTraitEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.StateEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.request.RequestDTO;
 import fr.seblaporte.assistantdomoticz.DTO.google.request.RequestInputsDTO;
@@ -17,10 +16,10 @@ import fr.seblaporte.assistantdomoticz.util.DomoticzApiConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +37,7 @@ public class Smarthome {
         this.domoticzService = domoticzService;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "hello")
-    @PreAuthorize("hasRole('ROLE_user')")
+    @GetMapping(path = "/smarthome")
     public String hello() {
         return "Hello";
     }
