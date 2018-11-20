@@ -9,4 +9,5 @@ deploy:
   provider: gae
   keyfile: assistant-domoticz-b2ccb70ff6dd.json
   project: assistant-domoticz
+  config: target/appengine-staging/app.yaml
   on: production
