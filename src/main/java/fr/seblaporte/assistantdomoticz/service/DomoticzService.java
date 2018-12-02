@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -25,12 +27,25 @@ public class DomoticzService {
     @Value("${domoticz.url}")
     private String domoticzUrl;
 
+    @Value("${domoticz.username}")
+    private String domoticzUsername;
+
+    @Value("${domoticz.password}")
+    private String domoticzPassword;
+
     Logger logger = LoggerFactory.getLogger(DomoticzService.class);
 
     private RestTemplate restTemplate;
 
     public DomoticzService() {
         restTemplate = new RestTemplate();
+
+        boolean authenticationConfigured = !StringUtils.isEmpty(domoticzUsername) && !StringUtils.isEmpty(domoticzPassword);
+        if (authenticationConfigured) {
+            restTemplate.getInterceptors().add(new BasicAuthenticationInterceptor(domoticzUsername, domoticzPassword));
+        } else {
+            logger.debug("No authentication configured");
+        }
     }
 
     public List<DomoticzDeviceDTO> getDevices() throws DomoticzApiCallException {
