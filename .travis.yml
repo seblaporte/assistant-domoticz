@@ -15,4 +15,4 @@ before_install:
 - gcloud config set project assistant-domoticz
 script:
 - mvn test -B
-- mvn –DskipTests appengine:deploy
+- mvn appengine:deploy
