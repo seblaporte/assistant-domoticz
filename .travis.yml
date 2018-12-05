@@ -21,4 +21,4 @@ addons:
 script:
 - mvn test -B
 - mvn appengine:deploy
-- sonar-scanner
+- mvn install sonar:sonar
