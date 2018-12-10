@@ -1,9 +1,9 @@
 package fr.seblaporte.assistantdomoticz.DTO.domoticz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import fr.seblaporte.assistantdomoticz.util.DomoticzDeviceStatusDeserializer;
 import lombok.Data;
-
-import java.util.List;
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
 @Data
 public class DomoticzDeviceDTO {
@@ -34,4 +34,8 @@ public class DomoticzDeviceDTO {
 
     @JsonProperty("PlanID")
     private String room;
+
+    @JsonProperty("Status")
+    @JsonDeserialize(using = DomoticzDeviceStatusDeserializer.class)
+    private DomoticzDeviceStatusDTO status;
 }

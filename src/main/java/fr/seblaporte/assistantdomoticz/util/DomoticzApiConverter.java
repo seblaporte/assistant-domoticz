@@ -1,9 +1,8 @@
 package fr.seblaporte.assistantdomoticz.util;
 
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceDTO;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceTypeEnum;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzSwitchTypeEnum;
+import fr.seblaporte.assistantdomoticz.DTO.domoticz.*;
 import fr.seblaporte.assistantdomoticz.DTO.google.*;
+import fr.seblaporte.assistantdomoticz.DTO.google.response.DeviceStatusDTO;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -101,4 +100,11 @@ public class DomoticzApiConverter {
     }
 
 
+    public static DeviceStatusDTO convertDeviceStatus(DomoticzDeviceStatusDTO status) {
+
+        final Boolean deviceStatus = status.getStatus().equals(DomoticzDeviceStatusEnum.ON);
+        final Integer brightnessLevel = status.getLevel();
+
+        return new DeviceStatusDTO(deviceStatus, true, brightnessLevel);
+    }
 }

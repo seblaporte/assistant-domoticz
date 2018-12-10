@@ -3,6 +3,7 @@ package fr.seblaporte.assistantdomoticz.web;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceDTO;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceCommandEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceDTO;
 import fr.seblaporte.assistantdomoticz.DTO.google.StateEnum;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -58,7 +60,8 @@ public class Smarthome {
                 case "action.devices.QUERY":
 
                     logger.info("Intent: QUERY");
-                    break;
+
+                    return query(request.getRequestId(), input);
 
                 case "action.devices.EXECUTE":
 
@@ -89,12 +92,29 @@ public class Smarthome {
         return response;
     }
 
-//    private ResponseDTO query(String requestId, RequestInputsDTO input) {
-//
-//        for (DeviceDTO device : input.getPayload().getDevices()) {
-//            domoticzService.getStatus();
-//        }
-//    }
+    private ResponseDTO query(String requestId, RequestInputsDTO input) throws DomoticzApiCallException {
+
+        ResponsePayloadQueryDTO queryPayloadDTO = new ResponsePayloadQueryDTO();
+
+        for (DeviceDTO device : input.getPayload().getDevices()) {
+            DomoticzDeviceDTO deviceFromDomoticz = domoticzService.getDeviceFromDomoticzById(device.getId());
+
+            DeviceStatusDTO deviceStatusDTO = DomoticzApiConverter.convertDeviceStatus(deviceFromDomoticz.getStatus());
+
+            Map<String, DeviceStatusDTO> deviceStatus = new HashMap<>();
+            deviceStatus.put(deviceFromDomoticz.getId(), deviceStatusDTO);
+
+            queryPayloadDTO.getDevices().add(deviceStatus);
+        }
+
+        ResponseDTO response = new ResponseDTO();
+        response.setRequestId(requestId);
+        response.setPayload(queryPayloadDTO);
+
+        logger.info(getJsonPrettyPrintedFromObject(response));
+
+        return response;
+    }
 
     private ResponseDTO execute(String requestId, RequestInputsDTO input) throws DomoticzApiCallException {
 

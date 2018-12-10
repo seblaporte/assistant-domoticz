@@ -96,6 +96,26 @@ public class DomoticzService {
         throw new DomoticzApiCallException("Error during devices listing", response.getStatusCode());
     }
 
+    public DomoticzDeviceDTO getDeviceFromDomoticzById(String deviceId) throws DomoticzApiCallException {
+
+        final String url = domoticzUrl + String.format("/json.htm?type=devices&rid=%s", deviceId);
+
+        final ResponseEntity<DomoticzDevicesResponseDTO> response = restTemplate.getForEntity(url, DomoticzDevicesResponseDTO.class);
+
+        if (response.getStatusCode().equals(HttpStatus.OK)) {
+
+            logger.info(String.format("Getting device %s from %s", deviceId, domoticzUrl));
+
+            if (response.getBody() == null) {
+                throw new DomoticzApiCallException("Body is empty", response.getStatusCode());
+            }
+
+            return response.getBody().getResult().get(0);
+        }
+
+        throw new DomoticzApiCallException("Error during devices listing", response.getStatusCode());
+    }
+
     private List<DomoticzPlanDTO> getPlansFromDomoticz() throws DomoticzApiCallException {
 
         final String url = domoticzUrl + "/json.htm?type=plans&order=name&used=true";
