@@ -1,9 +1,9 @@
 package fr.seblaporte.assistantdomoticz.DTO.domoticz;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import fr.seblaporte.assistantdomoticz.util.DomoticzDeviceStatusDeserializer;
 import lombok.Data;
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
 
 @Data
 public class DomoticzDeviceDTO {

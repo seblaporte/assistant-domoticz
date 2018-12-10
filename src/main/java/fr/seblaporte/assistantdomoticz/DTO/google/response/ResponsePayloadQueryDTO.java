@@ -9,9 +9,5 @@ import java.util.Map;
 @Data
 public class ResponsePayloadQueryDTO extends ResponsePayloadDTO {
 
-    List<Map<String, DeviceStatusDTO>> devices;
-
-    public ResponsePayloadQueryDTO() {
-        this.devices = new ArrayList<>();
-    }
+    Map<String, Map<String, Object>> devices;
 }

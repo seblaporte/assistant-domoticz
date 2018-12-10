@@ -11,7 +11,7 @@ public class DomoticzDeviceStatusDTO {
     DomoticzDeviceStatusEnum status;
 
     /* Level for devices with dimmer capability */
-    Integer level = 0;
+    Integer level = 100;
 
     public DomoticzDeviceStatusDTO(DomoticzDeviceStatusEnum status) {
         this.status = status;

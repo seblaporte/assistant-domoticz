@@ -1,13 +1,13 @@
 package fr.seblaporte.assistantdomoticz.util;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceStatusDTO;
 import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceStatusEnum;
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.ObjectCodec;
-import org.codehaus.jackson.map.DeserializationContext;
-import org.codehaus.jackson.map.JsonDeserializer;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -15,11 +15,11 @@ import java.util.regex.Pattern;
 
 public class DomoticzDeviceStatusDeserializer extends JsonDeserializer<DomoticzDeviceStatusDTO> {
 
-    @Override
-    public DomoticzDeviceStatusDTO deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
 
-        ObjectCodec oc = jp.getCodec();
-        JsonNode node = oc.readTree(jp);
+    @Override
+    public DomoticzDeviceStatusDTO deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException, JsonProcessingException {
+        ObjectCodec codec = jsonParser.getCodec();
+        JsonNode node = codec.readTree(jsonParser);
 
         final String domoticzStatus = node.asText();
 
@@ -28,11 +28,11 @@ public class DomoticzDeviceStatusDeserializer extends JsonDeserializer<DomoticzD
             return new DomoticzDeviceStatusDTO(status);
         } else {
 
-            Pattern pattern = Pattern.compile("(.*?)(\\d+)%");
+            Pattern pattern = Pattern.compile("(.*?)(\\d+)(.*)");
             Matcher matcher = pattern.matcher(domoticzStatus);
 
             if (matcher.matches()) {
-                String levelValue = matcher.group(1);
+                String levelValue = matcher.group(2);
                 Integer level = Integer.parseInt(levelValue);
                 return new DomoticzDeviceStatusDTO(DomoticzDeviceStatusEnum.ON, level);
             }
@@ -40,5 +40,4 @@ public class DomoticzDeviceStatusDeserializer extends JsonDeserializer<DomoticzD
 
         return new DomoticzDeviceStatusDTO(DomoticzDeviceStatusEnum.OFF);
     }
-
 }

@@ -2,13 +2,9 @@ package fr.seblaporte.assistantdomoticz.util;
 
 import fr.seblaporte.assistantdomoticz.DTO.domoticz.*;
 import fr.seblaporte.assistantdomoticz.DTO.google.*;
-import fr.seblaporte.assistantdomoticz.DTO.google.response.DeviceStatusDTO;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class DomoticzApiConverter {
 
@@ -100,11 +96,22 @@ public class DomoticzApiConverter {
     }
 
 
-    public static DeviceStatusDTO convertDeviceStatus(DomoticzDeviceStatusDTO status) {
+    public static Map<String, Object> convertDeviceStatus(DomoticzDeviceDTO domoticzDevice) {
 
-        final Boolean deviceStatus = status.getStatus().equals(DomoticzDeviceStatusEnum.ON);
-        final Integer brightnessLevel = status.getLevel();
+        Map<String, Object> deviceStatusInfos = new HashMap<>();
+        deviceStatusInfos.put("online", true);
 
-        return new DeviceStatusDTO(deviceStatus, true, brightnessLevel);
+        final DomoticzDeviceStatusDTO status = domoticzDevice.getStatus();
+
+        switch (domoticzDevice.getSwitchType()) {
+            case ON_OFF:
+                deviceStatusInfos.put("on", status.getStatus().equals(DomoticzDeviceStatusEnum.ON));
+                break;
+            case DIMMER:
+                deviceStatusInfos.put("on", status.getStatus().equals(DomoticzDeviceStatusEnum.ON));
+                deviceStatusInfos.put("brightness", status.getLevel());
+        }
+
+        return deviceStatusInfos;
     }
 }

@@ -32,7 +32,7 @@ public class Smarthome {
 
     private Logger logger = LoggerFactory.getLogger(Smarthome.class);
 
-    final DomoticzService domoticzService;
+    private final DomoticzService domoticzService;
 
     @Autowired
     public Smarthome(DomoticzService domoticzService) {
@@ -95,17 +95,14 @@ public class Smarthome {
     private ResponseDTO query(String requestId, RequestInputsDTO input) throws DomoticzApiCallException {
 
         ResponsePayloadQueryDTO queryPayloadDTO = new ResponsePayloadQueryDTO();
+        Map<String, Map<String, Object>> deviceStatus = new HashMap<>();
 
         for (DeviceDTO device : input.getPayload().getDevices()) {
             DomoticzDeviceDTO deviceFromDomoticz = domoticzService.getDeviceFromDomoticzById(device.getId());
-
-            DeviceStatusDTO deviceStatusDTO = DomoticzApiConverter.convertDeviceStatus(deviceFromDomoticz.getStatus());
-
-            Map<String, DeviceStatusDTO> deviceStatus = new HashMap<>();
-            deviceStatus.put(deviceFromDomoticz.getId(), deviceStatusDTO);
-
-            queryPayloadDTO.getDevices().add(deviceStatus);
+            deviceStatus.put(deviceFromDomoticz.getDeviceId(), DomoticzApiConverter.convertDeviceStatus(deviceFromDomoticz));
         }
+
+        queryPayloadDTO.setDevices(deviceStatus);
 
         ResponseDTO response = new ResponseDTO();
         response.setRequestId(requestId);
