@@ -1,7 +1,6 @@
 package fr.seblaporte.assistantdomoticz.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,21 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(1)
 public class LoginConfig extends WebSecurityConfigurerAdapter {
-
-    private String secretKey;
-
-    public LoginConfig(@Value("${oauth.secret}") String secretKey) {
-        this.secretKey = secretKey;
-    }
 
     @Bean
     @Override
@@ -45,22 +35,10 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public TokenStore tokenStore() {
-        return new JwtTokenStore(jwtTokenEnhancer());
-    }
-
-    @Bean
-    protected JwtAccessTokenConverter jwtTokenEnhancer() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(secretKey);
-
-        return converter;
-    }
-
     @Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService())
+        auth
+                .userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -78,7 +56,9 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+        auth
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(passwordEncoder());
     }
 
 }
