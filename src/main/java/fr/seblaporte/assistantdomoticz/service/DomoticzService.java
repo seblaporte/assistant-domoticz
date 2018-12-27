@@ -26,13 +26,17 @@ public class DomoticzService {
 
     private final String domoticzUrl;
 
+    private final MqttDomoticzService mqttDomoticzService;
+
     Logger logger = LoggerFactory.getLogger(DomoticzService.class);
 
     private RestTemplate restTemplate;
 
     public DomoticzService(@Value("${domoticz.url}") String domoticzUrl,
                            @Value("${domoticz.username}") String domoticzUsername,
-                           @Value("${domoticz.password}") String domoticzPassword) {
+                           @Value("${domoticz.password}") String domoticzPassword,
+                           MqttDomoticzService mqttDomoticzService) {
+        this.mqttDomoticzService = mqttDomoticzService;
         restTemplate = new RestTemplate();
 
         this.domoticzUrl = domoticzUrl;
@@ -140,10 +144,9 @@ public class DomoticzService {
 
                 final boolean on = (boolean) params.get(StateEnum.ON);
 
-                apiUrl = DomoticzApiCall.createUrlOnOff(domoticzUrl, device.getId(), on);
-                response = restTemplate.getForEntity(apiUrl, DomoticzCommandResponseDTO.class);
+                mqttDomoticzService.controlOnOff(device.getId(), on);
 
-                return DomoticzApiCall.checkResponseFromDomoticzApi(response);
+                return true;
 
             case BRIGHTNESS:
 
@@ -157,9 +160,9 @@ public class DomoticzService {
                     apiUrl = DomoticzApiCall.createUrlFullyDimmable(domoticzUrl, device.getId(), brightness);
                 }
 
-                response = restTemplate.getForEntity(apiUrl, DomoticzCommandResponseDTO.class);
+                mqttDomoticzService.controlBrightness(device.getId(), brightness);
 
-                return DomoticzApiCall.checkResponseFromDomoticzApi(response);
+                return true;
 
             case COLOR:
 
