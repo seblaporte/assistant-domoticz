@@ -17,6 +17,7 @@ import fr.seblaporte.assistantdomoticz.util.DomoticzApiConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,15 +34,13 @@ public class Smarthome {
     private Logger logger = LoggerFactory.getLogger(Smarthome.class);
 
     private final DomoticzService domoticzService;
+    private final String agentUserId;
 
     @Autowired
-    public Smarthome(DomoticzService domoticzService) {
+    public Smarthome(@Value("${assistant.agent.userid}") String agentUserId,
+                     DomoticzService domoticzService) {
         this.domoticzService = domoticzService;
-    }
-
-    @GetMapping(path = "/smarthome")
-    public String hello() {
-        return "Hello";
+        this.agentUserId = agentUserId;
     }
 
     @PostMapping(path = "/smarthome")
@@ -77,7 +76,7 @@ public class Smarthome {
     private ResponseDTO sync(String requestId) throws DomoticzApiCallException {
 
         ResponsePayloadSyncDTO syncPayloadDTO = new ResponsePayloadSyncDTO();
-        syncPayloadDTO.setAgentUserId("1836.15267389");
+        syncPayloadDTO.setAgentUserId(agentUserId);
 
         List<DeviceDTO> devices = DomoticzApiConverter.convertDevices(domoticzService.getDevices());
 

@@ -21,7 +21,7 @@ public class MqttDomoticzService {
         domoticzGateway.sendToMqtt(json);
     }
 
-    public void controlBrightness(String deviceId, int brightness) {
+    public void controlBrightness(String deviceId, Long brightness) {
         final String json = String.format("{ \"command\": \"switchlight\", \"idx\" : %s, \"switchcmd\": \"Set Level\", \"level\": %d}",
                 deviceId, brightness);
         domoticzGateway.sendToMqtt(json);

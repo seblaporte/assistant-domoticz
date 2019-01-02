@@ -33,7 +33,7 @@ public class DeviceDTO {
     private DeviceInfoDTO deviceInfo;
 
     public DeviceDTO() {
-        this.setWillReportState(false);
+        this.setWillReportState(true);
         this.setDeviceInfo(new DeviceInfoDTO());
         this.setRoomHint("");
     }

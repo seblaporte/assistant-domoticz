@@ -5,7 +5,7 @@ import fr.seblaporte.assistantdomoticz.DTO.google.DeviceCommandEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceDTO;
 import fr.seblaporte.assistantdomoticz.DTO.google.StateEnum;
 import fr.seblaporte.assistantdomoticz.exception.DomoticzApiCallException;
-import fr.seblaporte.assistantdomoticz.util.DomoticzApiCall;
+import fr.seblaporte.assistantdomoticz.util.DomoticzRestApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +28,7 @@ public class DomoticzService {
 
     private final MqttDomoticzService mqttDomoticzService;
 
-    Logger logger = LoggerFactory.getLogger(DomoticzService.class);
+    private Logger logger = LoggerFactory.getLogger(DomoticzService.class);
 
     private RestTemplate restTemplate;
 
@@ -150,17 +150,15 @@ public class DomoticzService {
 
             case BRIGHTNESS:
 
-                final int brightness = (int) params.get(StateEnum.BRIGHTNESS);
+                final Long brightness = (long) (int) params.get(StateEnum.BRIGHTNESS);
 
                 if (device.getDeviceInfo().getModel().equals(DomoticzHardwareEnum.RFXCOM.toString())) {
-                    apiUrl = DomoticzApiCall.createUrlDimmable(domoticzUrl, device.getId(), brightness);
+                    mqttDomoticzService.controlBrightness(device.getId(), Math.round(brightness * 0.16));
                 } else if (device.getDeviceInfo().getModel().equals(DomoticzHardwareEnum.MI_LIGHT.toString())) {
-                    apiUrl = DomoticzApiCall.createUrlFullyDimmable(domoticzUrl, device.getId(), brightness);
+                    mqttDomoticzService.controlBrightness(device.getId(), brightness);
                 } else {
-                    apiUrl = DomoticzApiCall.createUrlFullyDimmable(domoticzUrl, device.getId(), brightness);
+                    mqttDomoticzService.controlBrightness(device.getId(), brightness);
                 }
-
-                mqttDomoticzService.controlBrightness(device.getId(), brightness);
 
                 return true;
 
@@ -169,10 +167,10 @@ public class DomoticzService {
                 final Map<String, Object> color = (Map<String, Object>) params.get(StateEnum.COLOR);
                 final int colorSpectrumRgb = (int) color.get("spectrumRGB");
 
-                apiUrl = DomoticzApiCall.createUrlColor(domoticzUrl, device.getId(), colorSpectrumRgb);
+                apiUrl = DomoticzRestApi.createUrlColor(domoticzUrl, device.getId(), colorSpectrumRgb);
                 response = restTemplate.getForEntity(apiUrl, DomoticzCommandResponseDTO.class);
 
-                return DomoticzApiCall.checkResponseFromDomoticzApi(response);
+                return DomoticzRestApi.checkResponseFromDomoticzApi(response);
         }
 
         return false;

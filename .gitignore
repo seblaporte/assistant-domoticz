@@ -4,3 +4,9 @@ target/
 mvnw
 mvnw.cmd
 .DS_Store
+src/main/resources/application.properties
+src/main/resources/assistant-domoticz-report-state.json
+src/test/resources/application.properties
+application.properties
+assistant-domoticz-report-state.json
+assistant-domoticz-cli.json

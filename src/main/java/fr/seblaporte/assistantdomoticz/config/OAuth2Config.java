@@ -30,7 +30,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                         AuthenticationManager authenticationManager,
                         @Value("${oauth.client-id}") String clientId,
                         @Value("${oauth.secret}") String secret,
-                        @Value("${oauth.secret}") String secretKey) {
+                        @Value("${assistant.jwt.key}") String secretKey) {
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.clientId = clientId;

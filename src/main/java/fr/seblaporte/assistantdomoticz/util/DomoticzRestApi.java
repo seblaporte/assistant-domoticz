@@ -9,7 +9,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-public class DomoticzApiCall {
+public class DomoticzRestApi {
 
     public static final String ERROR_CREATE_URI = "Error during URI creation for Domoticz API.";
 
