@@ -64,7 +64,7 @@ public class MqttConfig {
     @Bean
     @ServiceActivator(inputChannel = "mqttOutboundChannel")
     public MessageHandler mqttOutbound() {
-        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("assistant-domoticz", mqttClientFactory());
+        MqttPahoMessageHandler messageHandler = new MqttPahoMessageHandler("assistant-domoticz-report-state", mqttClientFactory());
         messageHandler.setAsync(true);
         messageHandler.setDefaultTopic("domoticz/in");
         messageHandler.setDefaultQos(1);
@@ -80,7 +80,7 @@ public class MqttConfig {
     public MessageProducer inbound() {
         MqttPahoMessageDrivenChannelAdapter adapter =
                 new MqttPahoMessageDrivenChannelAdapter(
-                        "assistant-domoticz",
+                        "assistant-domoticz-execute",
                         mqttClientFactory(),
                         "domoticz/out");
         adapter.setCompletionTimeout(5000);
