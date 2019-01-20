@@ -11,5 +11,7 @@ public enum DomoticzHardwareEnum {
     @JsonProperty("Limitless/AppLamp/Mi Light with LAN/WiFi interface")
     MI_LIGHT,
     @JsonProperty("Zigate plugin")
-    ZIGATE
+    ZIGATE,
+    @JsonProperty("Hyperion")
+    HYPERION
 }
