@@ -46,62 +46,46 @@ public class DomoticzApiConverter {
 
         Capability capability = new Capability();
 
-        switch (domoticzDevice.getHardwareType()) {
+        switch (domoticzDevice.getSwitchType()) {
 
-            case DUMMY:
-                capability.setDeviceType(DeviceTypeEnum.SWITCH);
-                capability.setDeviceTraits(Collections.singletonList(DeviceTraitEnum.ON_OFF));
+            case DIMMER:
+
+                switch (domoticzDevice.getSubType()) {
+
+                    case RGBW:
+                    case RGB:
+                        capability.setDeviceType(DeviceTypeEnum.LIGHT);
+                        capability.setDeviceTraits(Arrays.asList(
+                                DeviceTraitEnum.ON_OFF,
+                                DeviceTraitEnum.BRIGHTNESS,
+                                DeviceTraitEnum.COLOR_TEMPERATURE,
+                                DeviceTraitEnum.COLOR_SPECTRUM));
+                        break;
+                    case AC:
+                    default:
+                        capability.setDeviceType(DeviceTypeEnum.LIGHT);
+                        capability.setDeviceTraits(Arrays.asList(
+                                DeviceTraitEnum.ON_OFF,
+                                DeviceTraitEnum.BRIGHTNESS
+                        ));
+                        break;
+                }
                 break;
-            case RFXCOM:
-                capability.setDeviceType(getDeviceTypeFromDomoticz(domoticzDevice.getDeviceCategory()));
-                capability.setDeviceTraits(getDeviceTraitsFromDomoticz(domoticzDevice.getSwitchType()));
-                break;
-            case MI_LIGHT:
-                capability.setDeviceType(DeviceTypeEnum.LIGHT);
-                capability.setDeviceTraits(Arrays.asList(
-                        DeviceTraitEnum.ON_OFF,
-                        DeviceTraitEnum.BRIGHTNESS,
-                        DeviceTraitEnum.COLOR_TEMPERATURE,
-                        DeviceTraitEnum.COLOR_SPECTRUM));
-                break;
-            case ZIGATE:
-                capability.setDeviceType(DeviceTypeEnum.LIGHT);
-                capability.setDeviceTraits(Arrays.asList(
-                        DeviceTraitEnum.ON_OFF,
-                        DeviceTraitEnum.BRIGHTNESS
-                ));
-                break;
+
+            case ON_OFF:
             default:
-                capability.setDeviceType(DeviceTypeEnum.SWITCH);
+                if (domoticzDevice.getDeviceCategory().equals(DomoticzDeviceTypeEnum.LIGHT)) {
+                    capability.setDeviceType(DeviceTypeEnum.LIGHT);
+                } else {
+                    capability.setDeviceType(DeviceTypeEnum.SWITCH);
+                }
                 capability.setDeviceTraits(Collections.singletonList(DeviceTraitEnum.ON_OFF));
                 break;
+
         }
 
         return capability;
     }
-
-    private static DeviceTypeEnum getDeviceTypeFromDomoticz(DomoticzDeviceTypeEnum deviceTypeDomoticz) {
-
-        for (DomoticzDeviceAssociationEnum domoticzDevice : DomoticzDeviceAssociationEnum.values()) {
-            if (domoticzDevice.getDeviceTypeDomoticz() == deviceTypeDomoticz) {
-                return domoticzDevice.getDeviceType();
-            }
-        }
-
-        return DeviceTypeEnum.SWITCH;
-    }
-
-    private static List<DeviceTraitEnum> getDeviceTraitsFromDomoticz(DomoticzSwitchTypeEnum switchType) {
-
-        for (DomoticzTraitAssociationEnum domoticzSwitchType : DomoticzTraitAssociationEnum.values()) {
-            if (domoticzSwitchType.getDomoticzSwitchType() == switchType) {
-                return domoticzSwitchType.getDeviceTraits();
-            }
-        }
-
-        return Collections.singletonList(DeviceTraitEnum.ON_OFF);
-    }
-
 
     public static Map<String, Object> convertDeviceStatus(DomoticzDeviceDTO domoticzDevice) {
 

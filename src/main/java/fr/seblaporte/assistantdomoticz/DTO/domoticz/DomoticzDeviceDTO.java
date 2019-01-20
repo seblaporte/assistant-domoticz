@@ -20,6 +20,9 @@ public class DomoticzDeviceDTO {
     @JsonProperty("Description")
     private String description;
 
+    @JsonProperty("SubType")
+    private DomoticzSubTypeEnum subType;
+
     @JsonProperty("SwitchType")
     private DomoticzSwitchTypeEnum switchType;
 
