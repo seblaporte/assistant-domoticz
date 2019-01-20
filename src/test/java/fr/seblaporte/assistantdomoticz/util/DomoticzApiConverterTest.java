@@ -1,9 +1,6 @@
 package fr.seblaporte.assistantdomoticz.util;
 
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceDTO;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzDeviceTypeEnum;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzHardwareEnum;
-import fr.seblaporte.assistantdomoticz.DTO.domoticz.DomoticzSwitchTypeEnum;
+import fr.seblaporte.assistantdomoticz.DTO.domoticz.*;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceDTO;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceTraitEnum;
 import fr.seblaporte.assistantdomoticz.DTO.google.DeviceTypeEnum;
@@ -19,6 +16,7 @@ public class DomoticzApiConverterTest {
         domoticzDevice.setDeviceId("1");
         domoticzDevice.setName("Lampe test");
         domoticzDevice.setHardwareType(DomoticzHardwareEnum.RFXCOM);
+        domoticzDevice.setSubType(DomoticzSubTypeEnum.AC);
         domoticzDevice.setDeviceCategory(DomoticzDeviceTypeEnum.LIGHT);
         domoticzDevice.setSwitchType(DomoticzSwitchTypeEnum.DIMMER);
 
@@ -37,6 +35,7 @@ public class DomoticzApiConverterTest {
         DomoticzDeviceDTO domoticzDevice = new DomoticzDeviceDTO();
         domoticzDevice.setDeviceId("1");
         domoticzDevice.setName("Lampe test");
+        domoticzDevice.setSubType(DomoticzSubTypeEnum.AC);
         domoticzDevice.setHardwareType(DomoticzHardwareEnum.RFXCOM);
         domoticzDevice.setDeviceCategory(DomoticzDeviceTypeEnum.LIGHT);
         domoticzDevice.setSwitchType(DomoticzSwitchTypeEnum.ON_OFF);
