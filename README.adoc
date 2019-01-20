@@ -1,22 +1,10 @@
 = assistant-domoticz
 
-WARNING: Work in progress
-
-Bridge to connect Domoticz to Google Assistant.
-
-== Run locally
-
-Install the SDK Cloud : https://cloud.google.com/sdk/
-
-```
-mvn -DskipTests clean appengine:run
-```
+Bridge to connect Domoticz to Google Assistant with Actions On Google.
 
 == Links
 
 - https://developers.google.com/actions/smarthome/create#setup-server[Actions on Google - Smarthome]
-- https://developers.google.com/actions/identity/google-sign-in[Google Sign-in]
 - https://console.actions.google.com/[Actions on Google console]
 - https://developers.google.com/actions/smarthome/[Smart Home documentation]
 - https://github.com/actions-on-google/smart-home-nodejs[NodeJS Smart Home Example by Google]
-- https://blog.couchbase.com/spring-security-oauth2_authentication/
