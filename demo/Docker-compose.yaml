@@ -1,0 +1,26 @@
+version: '3'
+
+volumes:
+  domoticz:
+  eclipse-mosquitto:
+
+services:
+
+  domoticz:
+    image: linuxserver/domoticz:stable-4.9700
+    ports:
+      - 8080:8080
+    volumes:
+      - domoticz:/config
+    devices:
+      - "/dev/ttyUSB1:/dev/ttyUSB0"
+    restart: always
+
+  eclipse-mosquitto:
+    image: eclipse-mosquitto:1.5.5
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - eclipse-mosquitto:/mosquitto/data
+    restart: always
