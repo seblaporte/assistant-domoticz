@@ -23,6 +23,5 @@ addons:
     token:
       secure: UQFLDhZp73NvVcjJmTb2SRhQM9FXPJ0h1DuCN4IPTxDParf0ZSZFZfpGDQowVl2bd8Neos65Hth5GRDgnBOocRbGWv1DqcOhA5wjp0LvOYxGB05u78wbw3kJNSEeaMz4W8YW25SnrLB2iQX8lghOLmkRBQu1ez45mQu5fRlm9yJ/KKkmU6yBbkDYiD+ju0c/ZVNCsm262wq0fApC2Lw37VkRkPe1ZyNJOR5doNhTOK6HUMrhN4YkpGp2Nmm5p2B+efmIlAaZM/D64+NdV1CHuqh8Ac99/w92Zg7Y3t4TQ++/Z2Pc4i9BmYdeCGAHNZvWzu7R3s6d4M74drjWIzaKDjWdXBZcwcvmwTAPMakkn6S5+0SsNa7rUqlS9uVtbYVwAkaLTB9DD3+a0pPcRoZ/6N0ALI2LAARHY5pgZx9PpsijBG+xl+Ty1aF2m/kyEgXijZuou/wejuKFUrQuI/leXELuIMWB9zQPw6Hvx9yIeUoLFV/0JMJJpeSIy28iGzm8lBNO3x88J/9+TcyRts1/sWznOTfReDtLpX/NYsQz1AB+A34cDLXtmDkDNY8UWxijoSDDYuOy4xL+k4xzwzHE/gLB3jE30IyFZ6U74uPPj4UwKkPLLjQpDnlEkr+2h6qU/X16Adul316qAiQ1m4LEI+SerxFrKwUMf+gyAhI/m4c=
 script:
-- mvn test -B
-- mvn appengine:deploy
+- mvn appengine:deploy -DskipTests
 - mvn sonar:sonar
