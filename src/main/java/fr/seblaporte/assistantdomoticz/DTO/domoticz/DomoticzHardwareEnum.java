@@ -9,5 +9,7 @@ public enum DomoticzHardwareEnum {
     @JsonProperty("RFXCOM - RFXtrx433 USB 433.92MHz Transceiver")
     RFXCOM,
     @JsonProperty("Limitless/AppLamp/Mi Light with LAN/WiFi interface")
-    MI_LIGHT
+    MI_LIGHT,
+    @JsonProperty("Zigate plugin")
+    ZIGATE
 }

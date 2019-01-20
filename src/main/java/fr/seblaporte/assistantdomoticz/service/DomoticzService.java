@@ -154,8 +154,6 @@ public class DomoticzService {
 
                 if (device.getDeviceInfo().getModel().equals(DomoticzHardwareEnum.RFXCOM.toString())) {
                     mqttDomoticzService.controlBrightness(device.getId(), Math.round(brightness * 0.16));
-                } else if (device.getDeviceInfo().getModel().equals(DomoticzHardwareEnum.MI_LIGHT.toString())) {
-                    mqttDomoticzService.controlBrightness(device.getId(), brightness);
                 } else {
                     mqttDomoticzService.controlBrightness(device.getId(), brightness);
                 }

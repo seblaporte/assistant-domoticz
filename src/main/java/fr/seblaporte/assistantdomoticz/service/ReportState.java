@@ -43,8 +43,6 @@ public class ReportState {
                 accessToken, params, "application/json");
 
         logger.info("Response : " + HttpUtils.readResponse(httpEntity).toString());
-
-        logger.info("Token : " + accessToken);
     }
 
     private JSONObject prepareState(String deviceId, Boolean on, Integer brightness) {

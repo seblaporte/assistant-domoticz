@@ -64,6 +64,13 @@ public class DomoticzApiConverter {
                         DeviceTraitEnum.COLOR_TEMPERATURE,
                         DeviceTraitEnum.COLOR_SPECTRUM));
                 break;
+            case ZIGATE:
+                capability.setDeviceType(DeviceTypeEnum.LIGHT);
+                capability.setDeviceTraits(Arrays.asList(
+                        DeviceTraitEnum.ON_OFF,
+                        DeviceTraitEnum.BRIGHTNESS
+                ));
+                break;
             default:
                 capability.setDeviceType(DeviceTypeEnum.SWITCH);
                 capability.setDeviceTraits(Collections.singletonList(DeviceTraitEnum.ON_OFF));
