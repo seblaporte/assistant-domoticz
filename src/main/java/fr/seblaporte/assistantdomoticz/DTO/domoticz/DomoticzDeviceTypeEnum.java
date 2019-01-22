@@ -13,5 +13,7 @@ public enum DomoticzDeviceTypeEnum {
     @JsonProperty("Speaker")
     SPEAKER,
     @JsonProperty("TV")
-    TV
+    TV,
+    @JsonProperty("xiaomi-mi-robot-vacuum-icon")
+    MI_ROBOT
 }

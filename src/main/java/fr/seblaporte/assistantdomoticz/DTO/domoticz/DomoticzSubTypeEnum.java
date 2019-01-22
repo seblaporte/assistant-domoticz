@@ -10,5 +10,7 @@ public enum DomoticzSubTypeEnum {
     RGB,
     @JsonProperty("AC")
     AC,
+    @JsonProperty("Switch")
+    SWITCH
 
 }

@@ -1,6 +1,5 @@
 package fr.seblaporte.assistantdomoticz.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -35,13 +34,6 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService())
-                .passwordEncoder(passwordEncoder());
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.requestMatchers()
@@ -55,7 +47,6 @@ public class LoginConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth
                 .userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());

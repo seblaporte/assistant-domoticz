@@ -62,6 +62,7 @@ public class DomoticzApiConverter {
                                 DeviceTraitEnum.COLOR_SPECTRUM));
                         break;
                     case AC:
+                    case SWITCH:
                     default:
                         capability.setDeviceType(DeviceTypeEnum.LIGHT);
                         capability.setDeviceTraits(Arrays.asList(
