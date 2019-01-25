@@ -67,7 +67,7 @@ public class ReportState {
         payload.put("devices", devices);
         json.put("payload", payload);
 
-        logger.info("Report state generated : " + json.toString());
+        logger.info("Report state generated : " + json.toString(2));
 
         return json;
     }

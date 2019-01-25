@@ -63,7 +63,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
@@ -71,7 +71,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
         oauthServer
                 .allowFormAuthenticationForClients()
                 .tokenKeyAccess("permitAll()")
