@@ -25,3 +25,5 @@ addons:
 script:
 - mvn appengine:deploy -DskipTests
 - mvn sonar:sonar
+notifications:
+  webhooks: https://dry-mountain-85615.herokuapp.com/travis-ci/travis
