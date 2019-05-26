@@ -11,5 +11,7 @@ public enum DeviceTraitEnum {
     @JsonProperty("action.devices.traits.ColorTemperature")
     COLOR_TEMPERATURE,
     @JsonProperty("action.devices.traits.ColorSpectrum")
-    COLOR_SPECTRUM
+    COLOR_SPECTRUM,
+    @JsonProperty("action.devices.traits.OpenClose")
+    OPEN_CLOSE
 }

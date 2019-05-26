@@ -11,5 +11,7 @@ public enum DomoticzSwitchTypeEnum {
     @JsonProperty("Contact")
     CONTACT,
     @JsonProperty("Selector")
-    SELECTOR
+    SELECTOR,
+    @JsonProperty("Door Contact")
+    DOOR_CONTACT
 }

@@ -73,6 +73,11 @@ public class DomoticzApiConverter {
                 }
                 break;
 
+            case DOOR_CONTACT:
+                capability.setDeviceType(DeviceTypeEnum.WINDOW);
+                capability.setDeviceTraits(Collections.singletonList(DeviceTraitEnum.OPEN_CLOSE));
+                break;
+
             case ON_OFF:
             default:
                 if (domoticzDevice.getDeviceCategory().equals(DomoticzDeviceTypeEnum.LIGHT)) {

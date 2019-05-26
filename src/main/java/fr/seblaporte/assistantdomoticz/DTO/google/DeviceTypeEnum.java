@@ -9,5 +9,7 @@ public enum DeviceTypeEnum {
     @JsonProperty("action.devices.types.OUTLET")
     OUTLET,
     @JsonProperty("action.devices.types.SWITCH")
-    SWITCH
+    SWITCH,
+    @JsonProperty("action.devices.types.WINDOW")
+    WINDOW
 }
